@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI PR Review Assistant | GitHub PR 智能审查 CLI</title>
+  <meta name="description" content="AI PR Review Assistant 是一个面向 GitHub Pull Request 的 AI 审查 CLI，提供完整安装、配置、命令、输出和工作流参考。">
+  <link rel="icon" type="image/png" href="assets/site-icon.png">
+  <link rel="apple-touch-icon" href="assets/site-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <img src="assets/site-icon.png" alt="AI PR Review Assistant 图标" class="nav-logo-icon">
+        <div class="nav-logo-text">
+          <span>AI PR Review Assistant</span>
+          <small>CLI + Docs Hub</small>
+        </div>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#product">产品能力</a>
+        <a href="#workflow">工作流</a>
+        <a href="#install">安装配置</a>
+        <a href="#docs">文档中心</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant" target="_blank" class="nav-gh">GitHub</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="切换导航菜单">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <div class="hero-noise"></div>
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>MIT License · GitHub PR Review · Terminal First</div>
+        <h1>把 GitHub PR 审查做成<br><span>可落地的 AI CLI 工作流</span></h1>
+        <p class="hero-desc">不是一个空泛的“AI 平台”页面，而是一个围绕当前仓库真实能力整理过的最终版展示页。用户可以直接在这里理解安装、配置、命令、输出格式、模型接入和协作流程。</p>
+        <div class="hero-actions">
+          <a href="#install" class="btn btn-primary">开始安装</a>
+          <a href="#docs" class="btn btn-secondary">查看文档中心</a>
+        </div>
+        <div class="hero-command-panel">
+          <div class="command-tabs">
+            <button class="command-tab active" data-command-tab="pipx">pipx</button>
+            <button class="command-tab" data-command-tab="pip">pip</button>
+            <button class="command-tab" data-command-tab="shell">shell</button>
+          </div>
+          <div class="command-body">
+            <div class="command-line active" id="command-pipx">
+              <code>pipx install ai-pr-review</code>
+              <button class="copy-btn" data-copy="pipx install ai-pr-review">复制</button>
+            </div>
+            <div class="command-line" id="command-pip">
+              <code>pip install ai-pr-review</code>
+              <button class="copy-btn" data-copy="pip install ai-pr-review">复制</button>
+            </div>
+            <div class="command-line" id="command-shell">
+              <code>curl -fsSL https://raw.githubusercontent.com/JiangLai999/AI-PR-Review-Assistant/main/install.sh | sh</code>
+              <button class="copy-btn" data-copy="curl -fsSL https://raw.githubusercontent.com/JiangLai999/AI-PR-Review-Assistant/main/install.sh | sh">复制</button>
+            </div>
+          </div>
+        </div>
+        <div class="hero-meta-grid">
+          <div class="hero-meta-card"><strong>18+</strong><span>provider 预设</span></div>
+          <div class="hero-meta-card"><strong>Terminal / MD / JSON</strong><span>多格式输出</span></div>
+          <div class="hero-meta-card"><strong>Config / Chat / History</strong><span>本地工作区能力</span></div>
+        </div>
+      </div>
+
+      <div class="hero-stack">
+        <div class="terminal-window floating-card">
+          <div class="terminal-top">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="terminal-label">review session</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="prompt">$</span> pr-review https://github.com/owner/repo/pull/123 --format markdown --publish-comment</div>
+            <div class="terminal-line dim">Loading PR metadata...</div>
+            <div class="terminal-line success">✓ PR data fetched</div>
+            <div class="terminal-line dim">Filtering binary / deleted / large files...</div>
+            <div class="terminal-line success">✓ 5 files selected for review</div>
+            <div class="terminal-line warn">⚠ src/auth.py:78 SQL injection risk</div>
+            <div class="terminal-line warn">⚠ src/auth.py:42 Missing input validation</div>
+            <div class="terminal-line success">✓ Markdown report rendered</div>
+            <div class="terminal-line success">✓ GitHub comment published</div>
+          </div>
+        </div>
+
+        <div class="hero-side-cards">
+          <div class="floating-card mini-card">
+            <div class="mini-kicker">配置优先级</div>
+            <ol>
+              <li>用户级配置</li>
+              <li>项目级配置</li>
+              <li>本地私有配置</li>
+              <li>环境变量</li>
+              <li>CLI 参数</li>
+            </ol>
+          </div>
+          <div class="floating-card mini-card accent">
+            <div class="mini-kicker">最小必需项</div>
+            <ul>
+              <li><code>Python 3.12+</code></li>
+              <li><code>GITHUB_TOKEN</code></li>
+              <li>一个模型供应商 API Key</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="trust-strip">
+    <div class="container trust-grid">
+      <div class="trust-item"><span>已接入主流程</span><strong>PR 拉取 / 过滤 / AI 审查 / 报告</strong></div>
+      <div class="trust-item"><span>本地体验</span><strong>SQLite 历史、统计、聊天工作区</strong></div>
+      <div class="trust-item"><span>配置能力</span><strong>向导、模型发现、健康检查、custom endpoint</strong></div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="product">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-tag">PRODUCT</div>
+        <h2>当前版本真正交付了什么</h2>
+        <p>页面内容按 README 的真实状态整理，明确区分“已实现”“需要额外配置”“仍属规划”。</p>
+      </div>
+      <div class="product-grid">
+        <article class="product-panel reveal-card">
+          <h3>已实现并可直接使用</h3>
+          <ul>
+            <li>GitHub PR URL 解析、PR 数据抓取、diff 与文件内容获取</li>
+            <li>文件过滤管道、上下文构建、Prompt 组装、逐文件 AI 审查</li>
+            <li>后处理、终端 / Markdown / JSON 输出、GitHub PR 评论发布</li>
+            <li><code>pr-review config</code>、<code>history</code>、<code>stats</code>、<code>chat</code></li>
+          </ul>
+        </article>
+        <article class="product-panel reveal-card">
+          <h3>需要额外配置</h3>
+          <ul>
+            <li><code>tree-sitter</code> 增强上下文默认不会自动启用</li>
+            <li>多 provider 预设依赖实际可用的 API Key / base URL / model</li>
+            <li>发布 GitHub 评论依赖有效权限的 <code>GITHUB_TOKEN</code></li>
+          </ul>
+        </article>
+        <article class="product-panel reveal-card">
+          <h3>规划中而非当前成品</h3>
+          <ul>
+            <li>Web 服务形态与完整 React/FastAPI 产品化</li>
+            <li>增量 Review、更多路由策略和更多外部集成</li>
+            <li>更深度的 GitHub App / CI 一体化体验</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="workflow">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-tag">WORKFLOW</div>
+        <h2>从 PR URL 到审查报告的完整路径</h2>
+        <p>这是当前仓库的核心价值，不是大而全的平台，而是一条可解释、可控制、可复用的 CLI 审查流水线。</p>
+      </div>
+      <div class="workflow-grid">
+        <div class="workflow-step reveal-card"><span>01</span><h3>获取 PR</h3><p>解析 GitHub Pull Request URL，抓取元数据、diff、文件列表和文件内容。</p></div>
+        <div class="workflow-step reveal-card"><span>02</span><h3>过滤文件</h3><p>跳过纯删除、大文件、二进制和不适合审查的文件，同时支持 force include。</p></div>
+        <div class="workflow-step reveal-card"><span>03</span><h3>构建上下文</h3><p>把 diff、局部代码窗口、imports、functions、classes 整理成模型上下文。</p></div>
+        <div class="workflow-step reveal-card"><span>04</span><h3>AI 审查</h3><p>逐文件调用模型输出结构化 findings，并在本地进行成本控制和预算限制。</p></div>
+        <div class="workflow-step reveal-card"><span>05</span><h3>后处理与输出</h3><p>置信度过滤、去重、渲染成 terminal / markdown / json / GitHub comment。</p></div>
+        <div class="workflow-step reveal-card"><span>06</span><h3>存储与复盘</h3><p>运行结果写入 SQLite，可继续用 history / stats / chat 工作区追踪。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="capabilities">
+    <div class="container">
+      <div class="section-head">
+        <div class="section-tag">CAPABILITIES</div>
+        <h2>适合真实团队使用的关键能力</h2>
+        <p>不是堆功能，而是围绕“如何把 AI 审查接进日常开发流程”来组织。</p>
+      </div>
+      <div class="capability-grid">
+        <article class="capability-card reveal-card"><h3>多模型 provider 适配</h3><p>内置 Anthropics、OpenAI、DeepSeek、Qwen、OpenRouter、Custom 等预设，可切换 provider、model、base URL 与 API format。</p></article>
+        <article class="capability-card reveal-card"><h3>配置向导与健康检查</h3><p>支持交互式配置、配置查看、配置测试、provider health probe、远端模型发现和默认模型切换。</p></article>
+        <article class="capability-card reveal-card"><h3>输出与审计留痕</h3><p>支持结构化 findings、Markdown 报告、JSON 自动化消费以及 SQLite 本地结果持久化。</p></article>
+        <article class="capability-card reveal-card"><h3>聊天工作区</h3><p>在终端内完成 slash command、会话恢复、模型切换和 PR review 触发，降低重复操作成本。</p></article>
+        <article class="capability-card reveal-card"><h3>成本与风险控制</h3><p>在审查执行前后做预算控制、无可审查文件说明、过滤原因输出和更可解释的失败诊断。</p></article>
+        <article class="capability-card reveal-card"><h3>CLI 优先的集成方式</h3><p>更适合本地开发、脚本化调用与 GitHub Actions 等自动化场景，而不是绑定某一个闭源平台。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="container">
+      <div class="section-head left">
+        <div class="section-tag">INSTALL & CONFIG</div>
+        <h2>安装、配置、验证，一次说清楚</h2>
+        <p>这里不只展示安装命令，还把真正影响用户成功率的前置条件、配置策略和常见命令放到同一视图里。</p>
+      </div>
+      <div class="install-layout">
+        <div class="install-main reveal-card">
+          <h3>推荐路径</h3>
+          <div class="journey-list">
+            <div class="journey-item"><span>1</span><div><strong>安装 CLI</strong><p>优先使用 <code>pipx install ai-pr-review</code>，隔离依赖且命令直接进 PATH。</p></div></div>
+            <div class="journey-item"><span>2</span><div><strong>准备认证信息</strong><p>至少配置 <code>GITHUB_TOKEN</code> 和一个模型供应商的 API Key。</p></div></div>
+            <div class="journey-item"><span>3</span><div><strong>运行配置向导</strong><p>执行 <code>pr-review config</code>，选择 provider、填写模型和 API 设置。</p></div></div>
+            <div class="journey-item"><span>4</span><div><strong>验证配置</strong><p>执行 <code>pr-review config test</code> 或 <code>pr-review config health --probe</code>。</p></div></div>
+            <div class="journey-item"><span>5</span><div><strong>跑一次真实 PR</strong><p>先用 <code>--only-filter</code> 或 <code>--dry-run</code> 验证，再执行完整审查。</p></div></div>
+          </div>
+        </div>
+        <div class="install-side">
+          <div class="info-card reveal-card">
+            <h3>安装方式</h3>
+            <div class="mini-code-list">
+              <div><span>pipx</span><code>pipx install ai-pr-review</code></div>
+              <div><span>pip</span><code>pip install ai-pr-review</code></div>
+              <div><span>GitHub</span><code>pipx install "git+https://github.com/JiangLai999/AI-PR-Review-Assistant.git"</code></div>
+              <div><span>shell</span><code>curl -fsSL https://raw.githubusercontent.com/JiangLai999/AI-PR-Review-Assistant/main/install.sh | sh</code></div>
+              <div><span>PowerShell</span><code>irm https://raw.githubusercontent.com/JiangLai999/AI-PR-Review-Assistant/main/install.ps1 | iex</code></div>
+            </div>
+          </div>
+          <div class="info-card reveal-card">
+            <h3>最小环境变量</h3>
+            <div class="code-block"><pre><code>export GITHUB_TOKEN="your_github_token"
+export ANTHROPIC_API_KEY="your_anthropic_api_key"</code></pre></div>
+          </div>
+          <div class="info-card reveal-card">
+            <h3>custom provider 示例</h3>
+            <div class="code-block"><pre><code>export MODEL_PROVIDER_API_KEY="your_custom_api_key"
+export AI_PR_REVIEW_PROVIDER="custom"
+export AI_PR_REVIEW_MODEL="mimo v2.5pro"
+export AI_PR_REVIEW_BASE_URL="https://token-plan-cn.xiaomimimo.com/v1"</code></pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-docs" id="docs">
+    <div class="container docs-shell">
+      <div class="section-head left docs-head">
+        <div class="section-tag">DOCS HUB</div>
+        <h2>把参考文档收拢成可浏览的文档中心</h2>
+        <p>安装、配置、命令、环境变量、常见场景和仓库原始文档入口都集中在这里，便于用户从“看到项目”直接走到“开始使用”。</p>
+      </div>
+
+      <div class="docs-layout">
+        <aside class="docs-sidebar reveal-card" id="docsSidebar"></aside>
+
+        <div class="docs-content reveal-card">
+          <article class="docs-panel active" id="docsGeneratedPanel">
+            <div class="docs-generated-head">
+              <p class="docs-source" id="docsPanelSource">文档来源</p>
+              <h3 id="docsPanelTitle">正在加载文档内容...</h3>
+            </div>
+            <div class="docs-generated-body" id="docsPanelBody"></div>
+          </article>
+
+          <article class="docs-panel active">
+            <h3>原始参考文档</h3>
+            <div class="reference-grid" id="docsReferenceGrid"></div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-light" id="faq">
+    <div class="container faq-shell">
+      <div class="section-head">
+        <div class="section-tag">FAQ</div>
+        <h2>常见问题</h2>
+        <p>先回答用户真正会卡住的地方，而不是只写宣传性文案。</p>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question"><span>这个项目本身收费吗？</span><span>+</span></button>
+          <div class="faq-answer"><p>项目本身是 MIT License 开源 CLI。实际费用来自你使用的模型供应商 API。仓库内已经包含成本估算与预算限制能力。</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>如果我的 provider 是 OpenAI 兼容接口怎么办？</span><span>+</span></button>
+          <div class="faq-answer"><p>可以使用 <code>custom</code> provider，通过 <code>AI_PR_REVIEW_PROVIDER</code>、<code>AI_PR_REVIEW_MODEL</code>、<code>AI_PR_REVIEW_BASE_URL</code> 和 API Key 来接入。</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>如何先验证配置是否正确，避免直接烧 token？</span><span>+</span></button>
+          <div class="faq-answer"><p>先执行 <code>pr-review config test</code> 或 <code>pr-review config health --probe</code>，然后用 <code>--only-filter</code> 或 <code>--dry-run</code> 跑一次最小验证。</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question"><span>这是不是一个 Web 产品？</span><span>+</span></button>
+          <div class="faq-answer"><p>当前不是。当前仓库的核心交付是本地命令行工作流。Web 服务、React 前端和更完整的平台化形态仍属于规划方向。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <div class="final-cta-box reveal-card">
+        <div>
+          <div class="section-tag dark">READY</div>
+          <h2>现在就把它接进你的 PR 流程</h2>
+          <p>安装 CLI，配置 provider，先做一次只过滤验证，再把完整审查结果写回 GitHub PR 评论区。</p>
+        </div>
+        <div class="final-cta-actions">
+          <div class="cta-command"><code>pipx install ai-pr-review</code></div>
+          <div class="cta-buttons">
+            <a href="#install" class="btn btn-primary">开始安装</a>
+            <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant" target="_blank" class="btn btn-dark">打开 GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">AI PR Review Assistant</div>
+        <p class="footer-copy">GitHub Pull Request 的 AI 审查 CLI。当前网站内容已按仓库真实能力重组，便于安装、配置和落地使用。</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant" target="_blank">GitHub</a>
+        <a href="https://pypi.org/project/ai-pr-review/" target="_blank">PyPI</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/README.md" target="_blank">README</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/API.md" target="_blank">API Docs</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/docs-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
