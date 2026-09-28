@@ -79,7 +79,7 @@ code,pre{font-family:var(--font-mono)}
 .btn-secondary:hover{background:#fff}
 .btn-dark{background:var(--ink);color:#fff}
 
-.hero-command-panel,.floating-card,.product-panel,.capability-card,.workflow-step,.docs-sidebar,.docs-content,.info-card,.install-main,.final-cta-box,.faq-item{background:rgba(255,255,255,0.86);border:1px solid rgba(148,163,184,0.18);box-shadow:var(--shadow-sm);backdrop-filter:blur(14px)}
+.hero-command-panel,.floating-card,.product-panel,.capability-card,.workflow-step,.docs-sidebar,.docs-content,.info-card,.install-main,.final-cta-box,.faq-item,.docs-jump-card{background:rgba(255,255,255,0.86);border:1px solid rgba(148,163,184,0.18);box-shadow:var(--shadow-sm);backdrop-filter:blur(14px)}
 .hero-command-panel{border-radius:22px;overflow:hidden;margin-bottom:24px}
 .command-tabs{display:flex;border-bottom:1px solid rgba(148,163,184,0.16)}
 .command-tab{flex:1;padding:12px 14px;background:none;border:none;cursor:pointer;font-weight:800;color:var(--ink-faint)}
@@ -137,6 +137,18 @@ code,pre{font-family:var(--font-mono)}
 .product-panel ul{padding-left:18px;display:grid;gap:9px}
 .product-panel code{font-size:.78rem;color:var(--accent)}
 .workflow-step span{display:inline-flex;width:44px;height:44px;border-radius:14px;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800;margin-bottom:14px}
+
+.docs-jump-card{margin-top:18px;border-radius:24px;padding:26px;display:grid;grid-template-columns:.85fr 1.15fr;gap:24px;align-items:start}
+.docs-jump-copy h3{font-size:1.24rem;letter-spacing:-.03em;margin-bottom:10px}
+.docs-jump-copy p{color:var(--ink-soft);margin-bottom:16px}
+.docs-jump-kicker{font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+.docs-jump-cta{margin-right:10px}
+.docs-jump-alt{font-size:.82rem;font-weight:700;color:var(--accent)}
+.docs-jump-alt:hover{text-decoration:underline}
+.command-chip-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.command-chip-list li{display:flex;flex-direction:column;gap:5px;padding:12px 14px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line)}
+.command-chip-list code{font-size:.8rem;color:var(--accent);word-break:break-word}
+.command-chip-list span{font-size:.8rem;color:var(--ink-soft)}
 
 .install-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:20px}
 .install-main,.info-card{border-radius:24px;padding:24px}
@@ -213,8 +225,13 @@ code,pre{font-family:var(--font-mono)}
 .faq-question span:last-child{font-size:1.2rem;color:var(--accent)}
 .faq-answer{max-height:0;overflow:hidden;transition:max-height .25s ease}
 .faq-item.open .faq-answer{max-height:220px}
-.faq-answer p{padding:0 22px 20px;color:var(--ink-soft)}
+.faq-item.long.open .faq-answer{max-height:520px}
+.faq-answer p{padding:0 22px;color:var(--ink-soft)}
+.faq-answer p+p{padding-top:0}
+.faq-answer p:last-child{padding-bottom:20px}
 .faq-answer code{font-size:.8rem;color:var(--accent)}
+.faq-answer a{color:var(--accent);font-weight:700}
+.faq-answer a:hover{text-decoration:underline}
 
 .final-cta{padding:0 0 110px}
 .final-cta-box{border-radius:28px;padding:34px;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
@@ -227,13 +244,14 @@ code,pre{font-family:var(--font-mono)}
 .footer-grid{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
 .footer-brand{font-size:1rem;font-weight:800;margin-bottom:10px}
 .footer-copy{max-width:620px;color:var(--ink-faint);font-size:.92rem}
+.footer-note{max-width:620px;margin-top:10px;color:var(--ink-faint);font-size:.82rem}
 .footer-links{display:flex;gap:18px;flex-wrap:wrap}
 .footer-links a{font-size:.9rem;color:var(--ink-soft);font-weight:700}
 
 .reveal-card{opacity:0;transform:translateY(24px)}
 
 @media (max-width: 1080px){
-  .hero-grid,.install-layout,.docs-layout,.final-cta-box{grid-template-columns:1fr}
+  .hero-grid,.install-layout,.docs-layout,.final-cta-box,.docs-jump-card{grid-template-columns:1fr}
   .product-grid,.capability-grid,.workflow-grid{grid-template-columns:repeat(2,1fr)}
   .docs-sidebar{position:static}
 }
@@ -243,7 +261,7 @@ code,pre{font-family:var(--font-mono)}
   .nav-links{display:none;position:absolute;top:76px;left:20px;right:20px;padding:18px;border-radius:20px;background:rgba(255,255,255,.96);border:1px solid var(--line);box-shadow:var(--shadow-md);flex-direction:column;align-items:flex-start}
   .nav-links.open{display:flex}
   .hero{padding-top:120px}
-  .hero-meta-grid,.hero-side-cards,.trust-grid,.product-grid,.capability-grid,.workflow-grid,.reference-grid{grid-template-columns:1fr}
+  .hero-meta-grid,.hero-side-cards,.trust-grid,.product-grid,.capability-grid,.workflow-grid,.reference-grid,.command-chip-list{grid-template-columns:1fr}
   .doc-row{grid-template-columns:1fr}
   .footer-grid{flex-direction:column}
 }
@@ -255,5 +273,6 @@ code,pre{font-family:var(--font-mono)}
   .command-line,.hero-actions,.cta-buttons{flex-direction:column;align-items:stretch}
   .copy-btn,.btn{width:100%}
   .nav-inner{width:min(100% - 24px, 1200px)}
-  .docs-sidebar,.docs-content,.product-panel,.capability-card,.workflow-step,.install-main,.info-card,.final-cta-box{padding:18px}
+  .docs-sidebar,.docs-content,.product-panel,.capability-card,.workflow-step,.install-main,.info-card,.final-cta-box,.docs-jump-card{padding:18px}
+  .docs-jump-cta{display:flex;width:100%;margin:0 0 12px}
 }

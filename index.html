@@ -5,6 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI PR Review Assistant | GitHub PR 智能审查工作台</title>
   <meta name="description" content="AI PR Review Assistant 是证据优先的 GitHub Pull Request 智能审查工作台，提供 CLI、OpenTUI、本地 Web 工作台、离线 Demo 与完整命令参考。">
+  <link rel="canonical" href="https://jianglai999.github.io/AI-PR-Review-Assistant-web/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AI PR Review Assistant">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="AI PR Review Assistant | GitHub PR 智能审查工作台">
+  <meta property="og:description" content="证据优先的 GitHub Pull Request 智能审查工作台：CLI、OpenTUI 与本地 Web 共用同一审查内核，先跑零密钥 Demo，再接入自己的模型凭据。">
+  <meta property="og:url" content="https://jianglai999.github.io/AI-PR-Review-Assistant-web/">
+  <meta property="og:image" content="https://jianglai999.github.io/AI-PR-Review-Assistant-web/assets/og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1536">
+  <meta property="og:image:height" content="1024">
+  <meta property="og:image:alt" content="AI PR Review Assistant 官网预览：CLI + OpenTUI + 本地 Web 的 GitHub PR 智能审查工作台">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI PR Review Assistant | GitHub PR 智能审查工作台">
+  <meta name="twitter:description" content="证据优先的 GitHub Pull Request 智能审查工作台：CLI、OpenTUI 与本地 Web 共用同一审查内核。">
+  <meta name="twitter:image" content="https://jianglai999.github.io/AI-PR-Review-Assistant-web/assets/og-preview.png">
+  <meta name="twitter:image:alt" content="AI PR Review Assistant 官网预览：CLI + OpenTUI + 本地 Web 的 GitHub PR 智能审查工作台">
+  <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/png" href="assets/site-icon.png">
   <link rel="apple-touch-icon" href="assets/site-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -202,6 +220,34 @@
         <article class="capability-card reveal-card"><h3>成本与风险控制</h3><p>在审查执行前后做预算控制、无可审查文件说明、过滤原因输出和更可解释的失败诊断。</p></article>
         <article class="capability-card reveal-card"><h3>CLI 优先的集成方式</h3><p>更适合本地开发、脚本化调用与 GitHub Actions 等自动化场景，而不是绑定某一个闭源平台。</p></article>
       </div>
+
+      <article class="docs-jump-card reveal-card">
+        <div class="docs-jump-copy">
+          <div class="docs-jump-kicker">CLI COMMAND REFERENCE</div>
+          <h3>16 个命令，一条可解释的审查流水线</h3>
+          <p>从零密钥离线 Demo 到证据可追溯的 review，再到本地工作台与历史复盘，全部命令、参数和输出格式都收在文档中心同一页里。</p>
+          <a href="#docs" class="btn btn-primary docs-jump-cta" data-docs-jump="cli-command-reference">打开 CLI 命令速查</a>
+          <a href="#docs" class="docs-jump-alt" data-docs-jump="cli-command-reference">在文档中心定位到「CLI 命令速查」标签页</a>
+        </div>
+        <ul class="command-chip-list">
+          <li><code>pr-review &lt;PR_URL&gt;</code><span>审查：执行一次完整 PR 审查</span></li>
+          <li><code>pr-review plan &lt;PR_URL&gt;</code><span>计划：只过滤文件、输出审查计划</span></li>
+          <li><code>pr-review explain &lt;RUN_ID&gt;</code><span>解释：回看某次 Run 的证据链</span></li>
+          <li><code>pr-review export-run &lt;RUN_ID&gt;</code><span>导出：把历史 Run 导出为报告文件</span></li>
+          <li><code>pr-review history</code><span>历史：查看历史 Run 列表</span></li>
+          <li><code>pr-review stats</code><span>统计：查看历史统计汇总</span></li>
+          <li><code>pr-review doctor</code><span>体检：环境、凭据、存储与 Web 资产检查</span></li>
+          <li><code>pr-review demo</code><span>演示：零密钥离线 Demo，不需要 Token / Key / 网络</span></li>
+          <li><code>pr-review benchmark</code><span>基准：static / ast / combined 准召对照</span></li>
+          <li><code>pr-review showcase</code><span>展示：本地场景演示路径</span></li>
+          <li><code>pr-review serve</code><span>工作台：启动本地 Web 工作台</span></li>
+          <li><code>pr-review chat</code><span>对话：OpenTUI / Plain Chat 工作区</span></li>
+          <li><code>pr-review preferences</code><span>偏好：查看或调整 CLI 行为偏好</span></li>
+          <li><code>pr-review local-model check</code><span>本地模型：诊断 Ollama 是否可用</span></li>
+          <li><code>pr-review trace &lt;PR_URL&gt;</code><span>追踪：输出各阶段耗时</span></li>
+          <li><code>pr-review feedback &lt;RUN_ID&gt; &lt;FINDING_ID&gt;</code><span>反馈：记录 finding 的接受 / 忽略结论</span></li>
+        </ul>
+      </article>
     </div>
   </section>
 
@@ -303,6 +349,21 @@ export AI_PR_REVIEW_BASE_URL="https://token-plan-cn.xiaomimimo.com/v1"</code></p
           <button class="faq-question"><span>CLI 和 Web 工作台是什么关系？</span><span>+</span></button>
           <div class="faq-answer"><p>二者共用同一套 Python 审查内核。执行 <code>pr-review serve</code> 会在本机启动 Web 工作台，设置写入独立的 <code>*.web.json</code>，不会改掉 CLI 的配置。项目官网只是静态展示站，不是托管审查后端。</p></div>
         </div>
+        <div class="faq-item long">
+          <button class="faq-question"><span>远端模型审查时数据会发到哪里？</span><span>+</span></button>
+          <div class="faq-answer">
+            <p>默认留在本机的是：配置文件、历史 Run 的 SQLite 记录、报告与缓存都写在你自己的机器上，不上传到任何项目服务器。</p>
+            <p>会离开本机的是：当你选择远端模型 provider 时，PR diff、文件片段、审查计划和拼装后的上下文会作为请求内容发送给你选择的模型服务方；如果你使用 <code>--publish-comment</code>，结论会写回 GitHub PR 评论区。官网本身是静态展示站，不做任何审查数据的中转。</p>
+            <p>处理敏感代码的建议：用 <code>pr-review local-model check</code> 确认本地 Ollama 可用后走本地模型，或用 <code>custom</code> provider 指向自建 / 私有化端点（<code>AI_PR_REVIEW_BASE_URL</code>），让代码不经过第三方。</p>
+          </div>
+        </div>
+        <div class="faq-item long">
+          <button class="faq-question"><span>第三方许可、商标和原创性怎么查？</span><span>+</span></button>
+          <div class="faq-answer">
+            <p>依赖清单、许可证与商标声明集中在 <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/THIRD_PARTY_NOTICES.md" target="_blank" rel="noopener">THIRD_PARTY_NOTICES.md</a>：逐个依赖的版本、许可证、证据来源都写清楚了，同时区分了 MIT 代码与字体等资源的不同授权（如 PyGithub 为 LGPL-3.0-or-later，GSAP 为 GreenSock Standard License，字体多为 SIL OFL-1.1）。</p>
+            <p>项目定位、MIT 授权边界、商标使用方式，以及 AI 辅助工具与提交内容的原创性口径，见 <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/COMPLIANCE_AND_ORIGINALITY.md" target="_blank" rel="noopener">docs/COMPLIANCE_AND_ORIGINALITY.md</a>。逐次开发过程记录见 <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/DEV_RECORD.md" target="_blank" rel="noopener">docs/DEV_RECORD.md</a>。</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -331,6 +392,7 @@ export AI_PR_REVIEW_BASE_URL="https://token-plan-cn.xiaomimimo.com/v1"</code></p
       <div>
         <div class="footer-brand">AI PR Review Assistant</div>
         <p class="footer-copy">证据优先的 GitHub Pull Request 智能审查工作台。CLI、OpenTUI 与本地 Web 共用同一审查内核。</p>
+        <p class="footer-note">MIT License 开源。官网只是静态展示站，不托管也不中转审查数据；依赖授权与合规口径见下方「第三方许可」与「合规声明」。</p>
       </div>
       <div class="footer-links">
         <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant" target="_blank">GitHub</a>
@@ -338,6 +400,9 @@ export AI_PR_REVIEW_BASE_URL="https://token-plan-cn.xiaomimimo.com/v1"</code></p
         <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/API.md" target="_blank">API Docs</a>
         <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/PROJECT_DESIGN.md" target="_blank">设计文档</a>
         <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/INNOVATION.md" target="_blank">创新点</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/THIRD_PARTY_NOTICES.md" target="_blank">第三方许可</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/COMPLIANCE_AND_ORIGINALITY.md" target="_blank">合规声明</a>
+        <a href="https://github.com/JiangLai999/AI-PR-Review-Assistant/blob/main/docs/DEV_RECORD.md" target="_blank">开发记录</a>
       </div>
     </div>
   </footer>

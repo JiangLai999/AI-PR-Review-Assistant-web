@@ -101,16 +101,28 @@ if (docsData && docsSidebar && docsReferenceGrid) {
     )
     .join('');
 
+  function selectDocTab(docId) {
+    const selected = docsData.tabs.find(tab => tab.id === docId);
+    const button = docsSidebar.querySelector(`.docs-tab[data-doc-id="${docId}"]`);
+    if (!selected || !button) return;
+    docsSidebar.querySelectorAll('.docs-tab').forEach(node => node.classList.remove('active'));
+    button.classList.add('active');
+    renderDocTab(selected);
+  }
+
   renderDocTab(docsData.tabs[0]);
 
   docsSidebar.querySelectorAll('.docs-tab').forEach(button => {
-    button.addEventListener('click', () => {
-      const { docId } = button.dataset;
-      const selected = docsData.tabs.find(tab => tab.id === docId);
-      if (!selected) return;
-      docsSidebar.querySelectorAll('.docs-tab').forEach(node => node.classList.remove('active'));
-      button.classList.add('active');
-      renderDocTab(selected);
+    button.addEventListener('click', () => selectDocTab(button.dataset.docId));
+  });
+
+  document.querySelectorAll('[data-docs-jump]').forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      const docId = trigger.dataset.docsJump;
+      if (!docId) return;
+      event.preventDefault();
+      document.querySelector('#docs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      selectDocTab(docId);
     });
   });
 }
@@ -125,6 +137,7 @@ document.querySelectorAll('.faq-question').forEach(question => {
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  if (anchor.hasAttribute('data-docs-jump')) return;
   anchor.addEventListener('click', event => {
     const href = anchor.getAttribute('href');
     if (!href || href === '#') return;
