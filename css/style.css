@@ -182,6 +182,16 @@ code,pre{font-family:var(--font-mono)}
 .doc-row span:first-child{font-family:var(--font-mono);font-size:.81rem;color:var(--accent);word-break:break-word}
 .doc-row span:last-child{color:var(--ink-soft)}
 .dense .doc-row{padding:11px 14px}
+/* 生成器（scripts/build_website_docs.py）注入 #docsPanelBody 的真表格：
+   上面 .doc-row 是手写的网格，这里是 Markdown 表格专用样式。 */
+.docs-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.docs-generated-body table{width:100%;border-collapse:collapse;font-size:.9rem}
+.docs-generated-body th,.docs-generated-body td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.docs-generated-body th{font-family:var(--font-mono);font-size:.78rem;color:var(--accent);background:var(--surface-2);white-space:nowrap}
+.docs-generated-body td{color:var(--ink-soft);word-break:break-word}
+.docs-generated-body tbody tr:last-child td{border-bottom:0}
+.docs-generated-body blockquote{margin:6px 0 12px;padding:10px 14px;border-left:3px solid var(--accent);border-radius:0 12px 12px 0;background:var(--surface-2);color:var(--ink-soft)}
+.docs-generated-body blockquote p{margin:0}
 
 .priority-stack{display:grid;gap:10px}
 .priority-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:16px;background:var(--surface-2)}
